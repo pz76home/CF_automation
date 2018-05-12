@@ -1,0 +1,17 @@
+#Create Cloudforms Categories using service dialogs, buttons and variables
+
+$evm.log(:info, "Create Category")
+
+#Create new_category variable from the "new_category" dialog text box.
+new_category = $evm.root['dialog_new_category']
+
+unless $evm.execute('category_exists?', new_category )
+  $evm.execute('category_create',
+                      :name => new_category,
+                      :single_value => false,
+                      :perf_by_tag => false,
+                      :description => new_category )
+end
+
+$evm.log(:info, "Created #{new_category}")
+exit MIQ_OK
