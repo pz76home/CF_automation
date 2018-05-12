@@ -1,0 +1,17 @@
+Create tags using service dialogs, buttons and variables.
+
+$evm.log(:info, "Create Tag")
+
+#Create variables from category and new_vmtag dialog text boxes.
+category = $evm.root['dialog_category']
+new_vmtag = $evm.root['dialog_new_vmtag']
+
+unless $evm.execute('tag_exists?', category, new_vmtag)
+  $evm.execute('tag_create', 
+                      category,
+                      :name => new_vmtag,
+                      :description => new_vmtag)
+end
+
+$evm.log(:info, "Created #{new_vmtag}")
+exit MIQ_OK
